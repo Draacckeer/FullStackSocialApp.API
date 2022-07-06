@@ -7,12 +7,10 @@ import com.example.fullstacksocialapp_api.app.resources.publication_message.Publ
 import com.example.fullstacksocialapp_api.app.resources.publication_message.UpdatePublicationMessageResource;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@SecurityRequirement(name = "acme")
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RestController
 @RequestMapping("api/v1/publication-message")
