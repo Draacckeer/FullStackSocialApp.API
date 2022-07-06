@@ -1,5 +1,10 @@
 package com.example.fullstacksocialapp_api.app.api;
 
+import com.example.fullstacksocialapp_api.app.domain.service.PublicationMessageService;
+import com.example.fullstacksocialapp_api.app.mapping.PublicationMessageMapper;
+import com.example.fullstacksocialapp_api.app.resources.publication_message.CreatePublicationMessageResource;
+import com.example.fullstacksocialapp_api.app.resources.publication_message.PublicationMessageResource;
+import com.example.fullstacksocialapp_api.app.resources.publication_message.UpdatePublicationMessageResource;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,37 +18,32 @@ import java.util.List;
 @RequestMapping("api/v1/publication-message")
 public class PublicationMessageController {
 
-    private final WholesalerService wholesalerService;
-    private final WholesalerMapper mapper;
+    private final PublicationMessageService publicationMessageService;
+    private final PublicationMessageMapper mapper;
 
-    public WholesalerController(WholesalerService wholesalerService, WholesalerMapper mapper){
-        this.wholesalerService = wholesalerService;
+    public PublicationMessageController(PublicationMessageService publicationMessageService, PublicationMessageMapper mapper){
+        this.publicationMessageService = publicationMessageService;
         this.mapper = mapper;
     }
 
     @GetMapping
-    public List<WholesalerResource> getAll(){
-        return mapper.toResource(wholesalerService.getAll());
-    }
-
-    @GetMapping("{wholesalerId}")
-    public WholesalerResource getWholesalerById(@PathVariable Long wholesalerId){
-        return mapper.toResource(wholesalerService.getById(wholesalerId));
+    public List<PublicationMessageResource> getAll(){
+        return mapper.toResource(publicationMessageService.getAll());
     }
 
     @PostMapping
-    public WholesalerResource createWholesaler(@RequestBody CreateWholesalerResource resource){
-        return mapper.toResource(wholesalerService.create(mapper.toModel(resource)));
+    public PublicationMessageResource create(@RequestBody CreatePublicationMessageResource resource){
+        return mapper.toResource(publicationMessageService.create(mapper.toModel(resource)));
     }
 
-    @PutMapping("{wholesalerId}")
-    public WholesalerResource updateWholesaler(@PathVariable Long wholesalerId,
-                                               @RequestBody UpdateWholesalerResource resource){
-        return mapper.toResource(wholesalerService.update(wholesalerId, mapper.toModel(resource)));
+    @PutMapping("{publicationMessageId}")
+    public PublicationMessageResource update(@PathVariable Long publicationMessageId,
+                                               @RequestBody UpdatePublicationMessageResource resource){
+        return mapper.toResource(publicationMessageService.update(publicationMessageId, mapper.toModel(resource)));
     }
 
-    @DeleteMapping("{wholesalerId}")
-    public ResponseEntity<?> deleteWholesaler(@PathVariable Long wholesalerId){
-        return wholesalerService.delete(wholesalerId);
+    @DeleteMapping("{publicationMessageId}")
+    public ResponseEntity<?> delete(@PathVariable Long publicationMessageId){
+        return publicationMessageService.delete(publicationMessageId);
     }
 }
