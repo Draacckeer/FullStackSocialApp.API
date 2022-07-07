@@ -7,7 +7,7 @@ import lombok.*;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreatePublicationResource {
+public class CreatePublicationMessageResource {
 
     private String message;
 }

@@ -1,4 +1,4 @@
-package com.example.fullstacksocialapp_api.app.resources.publication_message;
+package com.example.fullstacksocialapp_api.app.resources.publication;
 
 import lombok.*;
 
@@ -9,5 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 public class UpdatePublicationResource {
 
-    private String message;
+    private String title;
 }

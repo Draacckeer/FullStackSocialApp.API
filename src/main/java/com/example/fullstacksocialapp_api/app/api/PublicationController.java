@@ -2,9 +2,9 @@ package com.example.fullstacksocialapp_api.app.api;
 
 import com.example.fullstacksocialapp_api.app.domain.service.PublicationService;
 import com.example.fullstacksocialapp_api.app.mapping.PublicationMapper;
-import com.example.fullstacksocialapp_api.app.resources.publication_message.CreatePublicationResource;
-import com.example.fullstacksocialapp_api.app.resources.publication_message.PublicationResource;
-import com.example.fullstacksocialapp_api.app.resources.publication_message.UpdatePublicationResource;
+import com.example.fullstacksocialapp_api.app.resources.publication.CreatePublicationResource;
+import com.example.fullstacksocialapp_api.app.resources.publication.PublicationResource;
+import com.example.fullstacksocialapp_api.app.resources.publication.UpdatePublicationResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

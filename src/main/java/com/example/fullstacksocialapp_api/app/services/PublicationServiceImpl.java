@@ -34,36 +34,36 @@ public class PublicationServiceImpl implements PublicationService {
 
 
     @Override
-    public Publication create(Publication publicationMessage) {
-        Set<ConstraintViolation<Publication>> violations = validator.validate(publicationMessage);
+    public Publication create(Publication publication) {
+        Set<ConstraintViolation<Publication>> violations = validator.validate(publication);
 
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
 
-        return publicationRepository.save(publicationMessage);
+        return publicationRepository.save(publication);
     }
 
     @Override
-    public Publication update(Long productId, Publication request) {
+    public Publication update(Long id, Publication request) {
 
         Set<ConstraintViolation<Publication>> violations = validator.validate(request);
 
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        return publicationRepository.findById(productId).map(publicationMessage ->
-                        publicationRepository.save(publicationMessage
-                                .withMessage(request.getMessage())))
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, productId));
+        return publicationRepository.findById(id).map(publication ->
+                        publicationRepository.save(publication
+                                .withTitle(request.getTitle())))
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
 
     }
 
     @Override
-    public ResponseEntity<?> delete(Long productId) {
-        return publicationRepository.findById(productId).map(product -> {
-            publicationRepository.delete(product);
+    public ResponseEntity<?> delete(Long id) {
+        return publicationRepository.findById(id).map(publication -> {
+            publicationRepository.delete(publication);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, productId));
+        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
     }
 }

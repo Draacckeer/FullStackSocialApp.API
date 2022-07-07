@@ -7,7 +7,7 @@ import lombok.*;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class PublicationResource {
+public class PublicationMessageResource {
     private Long id;
     private String message;
 }
