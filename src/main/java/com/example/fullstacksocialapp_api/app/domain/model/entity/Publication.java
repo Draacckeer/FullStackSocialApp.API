@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @With
 @Entity
-@Table(name = "publication_message")
+@Table(name = "publication")
 public class Publication extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
