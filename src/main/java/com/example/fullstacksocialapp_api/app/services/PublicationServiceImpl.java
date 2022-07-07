@@ -1,0 +1,69 @@
+package com.example.fullstacksocialapp_api.app.services;
+
+import com.example.fullstacksocialapp_api.app.domain.model.entity.Publication;
+import com.example.fullstacksocialapp_api.app.domain.persistence.PublicationRepository;
+import com.example.fullstacksocialapp_api.app.domain.service.PublicationService;
+import com.example.fullstacksocialapp_api.shared.exception.ResourceNotFoundException;
+import com.example.fullstacksocialapp_api.shared.exception.ResourceValidationException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.List;
+import java.util.Set;
+
+@Service
+public class PublicationServiceImpl implements PublicationService {
+    private static final String ENTITY = "Publication";
+
+    private final PublicationRepository publicationRepository;
+    private final Validator validator;
+
+    public PublicationServiceImpl(PublicationRepository publicationRepository, Validator validator) {
+
+        this.publicationRepository = publicationRepository;
+
+        this.validator = validator;
+    }
+
+    @Override
+    public List<Publication> getAll() {
+        return publicationRepository.findAll();
+    }
+
+
+    @Override
+    public Publication create(Publication publicationMessage) {
+        Set<ConstraintViolation<Publication>> violations = validator.validate(publicationMessage);
+
+        if(!violations.isEmpty())
+            throw new ResourceValidationException(ENTITY, violations);
+
+
+        return publicationRepository.save(publicationMessage);
+    }
+
+    @Override
+    public Publication update(Long productId, Publication request) {
+
+        Set<ConstraintViolation<Publication>> violations = validator.validate(request);
+
+        if(!violations.isEmpty())
+            throw new ResourceValidationException(ENTITY, violations);
+
+        return publicationRepository.findById(productId).map(publicationMessage ->
+                        publicationRepository.save(publicationMessage
+                                .withMessage(request.getMessage())))
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, productId));
+
+    }
+
+    @Override
+    public ResponseEntity<?> delete(Long productId) {
+        return publicationRepository.findById(productId).map(product -> {
+            publicationRepository.delete(product);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, productId));
+    }
+}

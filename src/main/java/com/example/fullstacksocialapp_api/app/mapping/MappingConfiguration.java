@@ -8,5 +8,5 @@ import java.io.Serializable;
 @Configuration("SocialAppApiMappingConfiguration")
 public class MappingConfiguration implements Serializable {
     @Bean
-    public PublicationMessageMapper publicationMessageMapper() { return new PublicationMessageMapper(); }
+    public PublicationMapper publicationMessageMapper() { return new PublicationMapper(); }
 }
