@@ -10,5 +10,10 @@ import lombok.*;
 public class CreatePublicationMessageResource {
 
     private String message;
-    private Long publication;
+    private Long publication; // ID
+    private Long location;
+    private Long level;
+    private Long level1;
+    private Long level2;
+    private Long level3;
 }

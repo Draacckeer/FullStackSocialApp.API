@@ -1,9 +1,6 @@
 package com.example.fullstacksocialapp_api.app.domain.model.entity;
 
 import com.example.fullstacksocialapp_api.shared.domain.model.AuditModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,8 +19,9 @@ public class PublicationMessage extends AuditModel {
 
     private String message;
 
+    // Message Location
     private Long publication; // ID
-    private Long order;
+    private Long location;
     private Long level;
     private Long level1;
     private Long level2;

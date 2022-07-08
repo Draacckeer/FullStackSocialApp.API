@@ -4,7 +4,6 @@ import com.example.fullstacksocialapp_api.shared.domain.model.AuditModel;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +16,6 @@ public class Publication extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     private String title;
 
