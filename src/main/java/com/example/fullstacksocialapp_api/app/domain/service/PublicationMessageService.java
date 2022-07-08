@@ -11,4 +11,9 @@ public interface PublicationMessageService {
     PublicationMessage create(PublicationMessage publicationMessage);
     PublicationMessage update(Long id, PublicationMessage publicationMessage);
     ResponseEntity<?> delete(Long id);
+    ResponseEntity<?> deleteByPublicationId(Long id);
+    ResponseEntity<?> deleteByLevel1(Long level1);
+    ResponseEntity<?> deleteByLevel1AndLevel2(Long level1, Long level2);
+    ResponseEntity<?> deleteByLevel1AndLevel2AndLevel3(Long level1, Long level2, Long level3);
+
 }

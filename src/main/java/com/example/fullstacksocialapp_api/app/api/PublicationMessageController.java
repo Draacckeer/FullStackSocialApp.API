@@ -53,4 +53,24 @@ public class PublicationMessageController {
     public ResponseEntity<?> delete(@PathVariable Long publicationMessageId){
         return publicationMessageService.delete(publicationMessageId);
     }
+
+    @DeleteMapping("deleteByPublicationId/{publicationId}")
+    public ResponseEntity<?> deleteByPublicationId(@PathVariable Long publicationId){
+        return publicationMessageService.deleteByPublicationId(publicationId);
+    }
+
+    @DeleteMapping("deleteByLevel1/{level1}")
+    public ResponseEntity<?> deleteByLevel1(@PathVariable Long level1){
+        return publicationMessageService.deleteByLevel1(level1);
+    }
+
+    @DeleteMapping("deleteByLevel1AndLevel2/{level1}/{level2}")
+    public ResponseEntity<?> deleteByLevel1AndLevel2(@PathVariable Long level1, @PathVariable Long level2){
+        return publicationMessageService.deleteByLevel1AndLevel2(level1, level2);
+    }
+
+    @DeleteMapping("deleteByLevel1AndLevel2/{level1}/{level2}/{level3}")
+    public ResponseEntity<?> deleteByLevel1AndLevel2(@PathVariable Long level1, @PathVariable Long level2, @PathVariable Long level3){
+        return publicationMessageService.deleteByLevel1AndLevel2AndLevel3(level1, level2,level3);
+    }
 }

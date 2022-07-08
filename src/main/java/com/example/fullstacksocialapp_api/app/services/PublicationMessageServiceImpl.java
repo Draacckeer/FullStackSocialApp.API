@@ -76,4 +76,28 @@ public class PublicationMessageServiceImpl implements PublicationMessageService 
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
     }
+
+    @Override
+    public ResponseEntity<?> deleteByPublicationId(Long id) {
+        publicationMessageRepository.deleteAll(publicationMessageRepository.findByPublication(id));
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<?> deleteByLevel1(Long level1) {
+        publicationMessageRepository.deleteAll(publicationMessageRepository.findByLevel1(level1));
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<?> deleteByLevel1AndLevel2(Long level1, Long level2) {
+        publicationMessageRepository.deleteAll(publicationMessageRepository.findByLevel1AndLevel2(level1, level2));
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<?> deleteByLevel1AndLevel2AndLevel3(Long level1, Long level2, Long level3) {
+        publicationMessageRepository.deleteAll(publicationMessageRepository.findByLevel1AndLevel2AndLevel3(level1, level2, level3));
+        return ResponseEntity.ok().build();
+    }
 }
