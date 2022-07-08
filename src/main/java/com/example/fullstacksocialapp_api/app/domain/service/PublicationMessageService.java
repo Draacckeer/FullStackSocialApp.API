@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface PublicationMessageService {
     List<PublicationMessage> getAll();
+    List<PublicationMessage> getByPublicationId(Long publicationId);
     PublicationMessage create(PublicationMessage publicationMessage);
     PublicationMessage update(Long id, PublicationMessage publicationMessage);
     ResponseEntity<?> delete(Long id);

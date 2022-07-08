@@ -10,4 +10,5 @@ import lombok.*;
 public class UpdatePublicationMessageResource {
 
     private String message;
+    private Long publication;
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -35,6 +36,11 @@ public class PublicationMessageServiceImpl implements PublicationMessageService 
         return publicationMessageRepository.findAll();
     }
 
+    @Override
+    public List<PublicationMessage> getByPublicationId(Long publicationId) {
+
+        return publicationMessageRepository.findByPublication(publicationId);
+    }
 
     @Override
     public PublicationMessage create(PublicationMessage publicationMessage) {
@@ -57,7 +63,8 @@ public class PublicationMessageServiceImpl implements PublicationMessageService 
 
         return publicationMessageRepository.findById(id).map(publicationMessage ->
                         publicationMessageRepository.save(publicationMessage
-                                .withMessage(request.getMessage())))
+                                .withMessage(request.getMessage())
+                                .withPublication(request.getPublication())))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
 
     }

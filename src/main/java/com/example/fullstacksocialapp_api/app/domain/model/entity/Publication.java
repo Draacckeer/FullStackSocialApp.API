@@ -4,6 +4,7 @@ import com.example.fullstacksocialapp_api.shared.domain.model.AuditModel;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter

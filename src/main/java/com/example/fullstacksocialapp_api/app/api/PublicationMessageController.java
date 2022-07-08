@@ -33,6 +33,11 @@ public class PublicationMessageController {
         return mapper.toResource(publicationMessageService.getAll());
     }
 
+    @GetMapping("getByPublicationId/{publicationId}")
+    public  List<PublicationMessageResource> getByPublicationId(@PathVariable Long publicationId){
+        return mapper.toResource(publicationMessageService.getByPublicationId(publicationId));
+    }
+
     @PostMapping
     public PublicationMessageResource create(@RequestBody CreatePublicationMessageResource resource){
         return mapper.toResource(publicationMessageService.create(mapper.toModel(resource)));
