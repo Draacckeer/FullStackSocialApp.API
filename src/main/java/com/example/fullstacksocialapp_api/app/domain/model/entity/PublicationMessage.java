@@ -21,7 +21,7 @@ public class PublicationMessage extends AuditModel {
 
     // Message Location
     private Long publication; // ID
-    private Long location;
+    private Long line;
     private Long level;
     private Long level1;
     private Long level2;

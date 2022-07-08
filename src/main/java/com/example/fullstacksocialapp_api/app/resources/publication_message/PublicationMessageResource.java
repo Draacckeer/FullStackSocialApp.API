@@ -11,7 +11,7 @@ public class PublicationMessageResource {
     private Long id;
     private String message;
     private Long publication; // ID
-    private Long location;
+    private Long line;
     private Long level;
     private Long level1;
     private Long level2;

@@ -63,8 +63,7 @@ public class PublicationMessageServiceImpl implements PublicationMessageService 
 
         return publicationMessageRepository.findById(id).map(publicationMessage ->
                         publicationMessageRepository.save(publicationMessage
-                                .withMessage(request.getMessage())
-                                .withPublication(request.getPublication())))
+                                .withMessage(request.getMessage())))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
 
     }
