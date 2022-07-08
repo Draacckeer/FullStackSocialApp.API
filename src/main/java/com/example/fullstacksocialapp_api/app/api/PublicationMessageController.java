@@ -17,7 +17,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RestController
-@RequestMapping("api/v1/publication_message")
+@RequestMapping("api/v1/publication_messages")
 public class PublicationMessageController {
 
     private final PublicationMessageService publicationMessageService;

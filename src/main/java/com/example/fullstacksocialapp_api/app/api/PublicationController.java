@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RestController
-@RequestMapping("api/v1/publication")
+@RequestMapping("api/v1/publications")
 public class PublicationController {
 
     private final PublicationService publicationService;
