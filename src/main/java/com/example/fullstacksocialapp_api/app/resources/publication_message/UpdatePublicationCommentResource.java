@@ -7,7 +7,7 @@ import lombok.*;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdatePublicationMessageResource {
+public class UpdatePublicationCommentResource {
 
-    private String message;
+    private String comment;
 }

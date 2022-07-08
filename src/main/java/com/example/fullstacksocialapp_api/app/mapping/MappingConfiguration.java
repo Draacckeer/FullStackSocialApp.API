@@ -10,5 +10,5 @@ public class MappingConfiguration implements Serializable {
     @Bean
     public PublicationMapper publicationMapper() { return new PublicationMapper(); }
     @Bean
-    public PublicationMessageMapper publicationMessageMapper() { return new PublicationMessageMapper(); }
+    public PublicationCommentMapper publicationMessageMapper() { return new PublicationCommentMapper(); }
 }

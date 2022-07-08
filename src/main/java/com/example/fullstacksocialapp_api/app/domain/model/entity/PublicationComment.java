@@ -12,12 +12,12 @@ import javax.persistence.*;
 @With
 @Entity
 @Table(name = "publication_message")
-public class PublicationMessage extends AuditModel {
+public class PublicationComment extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String message;
+    private String comment;
 
     // Message Location
     private Long publication; // ID

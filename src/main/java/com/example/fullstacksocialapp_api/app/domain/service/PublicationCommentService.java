@@ -1,15 +1,15 @@
 package com.example.fullstacksocialapp_api.app.domain.service;
 
-import com.example.fullstacksocialapp_api.app.domain.model.entity.PublicationMessage;
+import com.example.fullstacksocialapp_api.app.domain.model.entity.PublicationComment;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface PublicationMessageService {
-    List<PublicationMessage> getAll();
-    List<PublicationMessage> getByPublicationId(Long publicationId);
-    PublicationMessage create(PublicationMessage publicationMessage);
-    PublicationMessage update(Long id, PublicationMessage publicationMessage);
+public interface PublicationCommentService {
+    List<PublicationComment> getAll();
+    List<PublicationComment> getByPublicationId(Long publicationId);
+    PublicationComment create(PublicationComment publicationComment);
+    PublicationComment update(Long id, PublicationComment publicationComment);
     ResponseEntity<?> delete(Long id);
     ResponseEntity<?> deleteByPublicationId(Long id);
     ResponseEntity<?> deleteByLevel1(Long level1);

@@ -7,9 +7,9 @@ import lombok.*;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class PublicationMessageResource {
-    private Long id;
-    private String message;
+public class CreatePublicationCommentResource {
+
+    private String comment;
     private Long publication; // ID
     private Long line;
     private Long level;
