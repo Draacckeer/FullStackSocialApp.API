@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/publications_comments")
 public class PublicationCommentController {
-
     private final PublicationCommentService publicationCommentService;
     private final PublicationCommentMapper mapper;
 
