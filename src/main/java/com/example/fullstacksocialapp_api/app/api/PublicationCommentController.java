@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RestController
-@RequestMapping("api/v1/publications_comments")
+@RequestMapping("api/v1/publication_comments")
 public class PublicationCommentController {
     private final PublicationCommentService publicationCommentService;
     private final PublicationCommentMapper mapper;
