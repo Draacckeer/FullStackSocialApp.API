@@ -1,4 +1,6 @@
 package com.example.fullstacksocialapp_api.security.domain.model.enumeration;
 
-public class Roles {
+public enum Roles {
+    ROLE_USER,
+    ROLE_ADMIN
 }
