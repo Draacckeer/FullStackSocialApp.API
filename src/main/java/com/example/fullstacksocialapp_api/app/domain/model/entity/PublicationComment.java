@@ -18,6 +18,7 @@ public class PublicationComment extends AuditModel {
     private Long id;
 
     private String comment;
+    private Long user;
 
     // Message Location
     private Long publication; // ID
