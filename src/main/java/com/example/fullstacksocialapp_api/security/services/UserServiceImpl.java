@@ -10,6 +10,7 @@ import com.example.fullstacksocialapp_api.security.domain.service.communication.
 import com.example.fullstacksocialapp_api.security.domain.service.communication.AuthenticateResponse;
 import com.example.fullstacksocialapp_api.security.domain.service.communication.RegisterRequest;
 import com.example.fullstacksocialapp_api.security.domain.service.communication.RegisterResponse;
+import com.example.fullstacksocialapp_api.security.middleware.JwtAuthenticationFilter;
 import com.example.fullstacksocialapp_api.security.middleware.JwtHandler;
 import com.example.fullstacksocialapp_api.security.middleware.UserDetailsImpl;
 import com.example.fullstacksocialapp_api.security.resources.AuthenticateResource;
@@ -27,8 +28,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +50,9 @@ public class UserServiceImpl implements UserService {
     AuthenticationManager authenticationManager;
     @Autowired
     JwtHandler handler;
+
+    JwtAuthenticationFilter jwtAuthenticationFilter;
+
     @Autowired
     PasswordEncoder encoder;
     @Autowired
@@ -134,5 +141,15 @@ public class UserServiceImpl implements UserService {
                 new UsernameNotFoundException(String.format(
                         "User not found with username: %s", username)));
         return UserDetailsImpl.build(user);
+    }
+
+    @Override
+    public String getUsernameByToken(HttpServletRequest request, HttpServletResponse response) {
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            return handler.getUsernameFrom(token);
+        }
+        return null;
     }
 }

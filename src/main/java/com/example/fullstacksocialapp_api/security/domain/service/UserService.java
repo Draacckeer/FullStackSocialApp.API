@@ -6,6 +6,8 @@ import com.example.fullstacksocialapp_api.security.domain.service.communication.
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
@@ -15,4 +17,6 @@ public interface UserService extends UserDetailsService {
     ResponseEntity<?>  register(RegisterRequest request);
 
     List<User> getAll();
+
+    String getUsernameByToken(HttpServletRequest request, HttpServletResponse response);
 }

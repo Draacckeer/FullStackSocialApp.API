@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserServiceImpl userService;
 
-    private String parseTokenFrom(HttpServletRequest request){
+    public String parseTokenFrom(HttpServletRequest request){
         String authorizationHeader = request.getHeader("Authorization");
 
         if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith("Bearer")){
