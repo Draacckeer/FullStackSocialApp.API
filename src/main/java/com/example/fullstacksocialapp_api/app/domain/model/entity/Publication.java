@@ -20,8 +20,7 @@ public class Publication extends AuditModel {
     //User
     private Long user;
     private String username;
-
-
+    
     private String title;
 
 }
