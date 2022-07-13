@@ -12,4 +12,5 @@ public class PublicationResource {
     private Long userid;
     private String username;
     private String title;
+    private String content;
 }
