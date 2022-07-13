@@ -32,7 +32,7 @@ public class JwtHandler {
                 .setSubject(subject)
                 .setIssuedAt(issuedAt)
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, secret.getBytes())
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 

@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     JwtHandler handler;
 
+    @Autowired
     JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
