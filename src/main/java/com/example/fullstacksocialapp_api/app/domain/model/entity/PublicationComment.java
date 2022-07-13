@@ -20,7 +20,7 @@ public class PublicationComment extends AuditModel {
     private String comment;
 
     //User
-    private Long user;
+    private Long userid;
     private String username;
 
     // Message Location

@@ -18,7 +18,7 @@ public class Publication extends AuditModel {
     private Long id;
 
     //User
-    private Long user;
+    private Long userid;
     private String username;
     
     private String title;

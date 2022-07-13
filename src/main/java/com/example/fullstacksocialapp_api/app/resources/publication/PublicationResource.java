@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class PublicationResource {
     private Long id;
-    private Long user;
+    private Long userid;
     private String username;
     private String title;
 }

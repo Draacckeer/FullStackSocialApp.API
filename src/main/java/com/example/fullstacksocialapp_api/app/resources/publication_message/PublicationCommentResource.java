@@ -10,7 +10,7 @@ import lombok.*;
 public class PublicationCommentResource {
     private Long id;
     private String comment;
-    private Long user;
+    private Long userid;
     private String username;
     private Long publication; // ID
     private Long line;
