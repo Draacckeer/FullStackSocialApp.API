@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name="Users", description = "Create, read, update and delete users")
 @CrossOrigin(origins = "*" , maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/users/auth")
 public class UsersController {
 
     private final UserService userService;
@@ -29,19 +29,20 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @PostMapping("/auth/sign-in")
+    @PostMapping("/sign-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody
                                               AuthenticateRequest request){
         return userService.authenticate(request);
     }
 
-    @PostMapping("/auth/sign-up")
+    @PostMapping("/sign-up")
     public ResponseEntity<?> registerUser(@Valid @RequestBody
                                           RegisterRequest request){
         return userService.register(request);
     }
 
-    @GetMapping("/auth/get-all")
+
+    @GetMapping("/get-all")
     public List<UserResource> getAllUsers(){
         return mapper.toResource(userService.getAll());
     }

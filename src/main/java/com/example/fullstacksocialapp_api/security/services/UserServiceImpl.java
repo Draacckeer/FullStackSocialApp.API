@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
         }catch (Exception e) {
             AuthenticateResponse response = new AuthenticateResponse(String.format(
-                    "An error ocurred while authenticating: %s", e.getMessage()));
+                    "An error occurred while authenticating: %s", e.getMessage()));
             return ResponseEntity.badRequest().body(response.getMessage());
 
         }

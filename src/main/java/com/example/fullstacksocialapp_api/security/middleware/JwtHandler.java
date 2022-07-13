@@ -15,7 +15,7 @@ public class JwtHandler {
     private static final Logger
             logger = LoggerFactory.getLogger(JwtHandler.class);
 
-    @Value("WriteHereYouSecretStringForTokenSigningCredencials")
+    @Value("WriteHereYouSecretStringForTokenSigningCredentials")
     private String secret;
 
     @Value("7")

@@ -31,8 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder builer) throws Exception {
-        builer.userDetailsService(userService);
+    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userService);
     }
 
     @Bean
