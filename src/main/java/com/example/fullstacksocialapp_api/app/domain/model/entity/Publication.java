@@ -17,6 +17,11 @@ public class Publication extends AuditModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //User
+    private Long user;
+    private String username;
+
+
     private String title;
 
 }

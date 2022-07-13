@@ -11,6 +11,7 @@ public class PublicationCommentResource {
     private Long id;
     private String comment;
     private Long user;
+    private String username;
     private Long publication; // ID
     private Long line;
     private Long level;
