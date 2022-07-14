@@ -25,4 +25,6 @@ public interface UserService extends UserDetailsService {
 
     User getUserById(Long id);
 
+    User getUserByToken(HttpServletRequest request, HttpServletResponse response);
+
 }

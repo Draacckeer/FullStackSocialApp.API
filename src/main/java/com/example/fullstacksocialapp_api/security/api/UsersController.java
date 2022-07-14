@@ -1,5 +1,6 @@
 package com.example.fullstacksocialapp_api.security.api;
 
+import com.example.fullstacksocialapp_api.security.domain.resources.UserPublicationResource;
 import com.example.fullstacksocialapp_api.security.domain.service.UserService;
 import com.example.fullstacksocialapp_api.security.domain.service.communication.AuthenticateRequest;
 import com.example.fullstacksocialapp_api.security.domain.service.communication.RegisterRequest;
@@ -62,6 +63,11 @@ public class UsersController {
     @GetMapping("/get-user-by-id/{userId}")
     public UserResource getUserById(@PathVariable Long userId){
         return mapper.toResource(userService.getUserById(userId));
+    }
+
+    @GetMapping("/get-user-publication-by-token")
+    public UserPublicationResource getUserPublicationByToken(HttpServletRequest request, HttpServletResponse response){
+        return mapper.toUserPublicationResource(userService.getUserByToken(request, response));
     }
 
 }

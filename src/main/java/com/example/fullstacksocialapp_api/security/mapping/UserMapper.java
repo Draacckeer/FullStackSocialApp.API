@@ -2,6 +2,7 @@ package com.example.fullstacksocialapp_api.security.mapping;
 
 import com.example.fullstacksocialapp_api.security.domain.model.entity.Role;
 import com.example.fullstacksocialapp_api.security.domain.model.entity.User;
+import com.example.fullstacksocialapp_api.security.domain.resources.UserPublicationResource;
 import com.example.fullstacksocialapp_api.security.resources.UserResource;
 import com.example.fullstacksocialapp_api.shared.mapping.EnhancedModelMapper;
 import org.modelmapper.AbstractConverter;
@@ -28,6 +29,10 @@ public class UserMapper implements Serializable {
     public UserResource toResource(User model){
         mapper.addConverter(roleToString);
         return mapper.map(model, UserResource.class);
+    }
+
+    public UserPublicationResource toUserPublicationResource(User model){
+        return mapper.map(model, UserPublicationResource.class);
     }
 
     public List<UserResource> toResource(List<User> model){

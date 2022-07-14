@@ -169,4 +169,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public User getUserByToken(HttpServletRequest request, HttpServletResponse response) {
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            return userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+        }
+        return null;
+    }
+
 }
