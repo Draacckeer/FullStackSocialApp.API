@@ -59,4 +59,9 @@ public class UsersController {
         return userService.getUserIdByToken(request, response);
     }
 
+    @GetMapping("/get-user-by-id/{userId}")
+    public UserResource getUserById(@PathVariable Long userId){
+        return mapper.toResource(userService.getUserById(userId));
+    }
+
 }
