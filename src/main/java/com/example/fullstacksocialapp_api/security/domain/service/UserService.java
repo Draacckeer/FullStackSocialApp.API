@@ -19,4 +19,7 @@ public interface UserService extends UserDetailsService {
     List<User> getAll();
 
     String getUsernameByToken(HttpServletRequest request, HttpServletResponse response);
+
+    Long getUserIdByToken(HttpServletRequest request, HttpServletResponse response);
+
 }

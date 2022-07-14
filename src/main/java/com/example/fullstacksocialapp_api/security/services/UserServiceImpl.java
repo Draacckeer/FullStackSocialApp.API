@@ -153,4 +153,15 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public Long getUserIdByToken(HttpServletRequest request, HttpServletResponse response) {
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            return userRepository.findByUsername(handler.getUsernameFrom(token)).map(User::getId).orElse(null);
+        }
+        return null;
+    }
+
 }

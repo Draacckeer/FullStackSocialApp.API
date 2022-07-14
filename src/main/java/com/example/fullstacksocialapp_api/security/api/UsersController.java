@@ -54,4 +54,9 @@ public class UsersController {
         return userService.getUsernameByToken(request, response);
     }
 
+    @GetMapping("/get-user-id-by-token")
+    public Long getUserIdByToken(HttpServletRequest request, HttpServletResponse response){
+        return userService.getUserIdByToken(request, response);
+    }
+
 }
