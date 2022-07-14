@@ -9,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class UserPublicationResource {
 
-    private Long userId;
+    private Long id;
     private String username;
 }
