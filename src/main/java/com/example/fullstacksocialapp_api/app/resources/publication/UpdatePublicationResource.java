@@ -9,6 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 public class UpdatePublicationResource {
 
-    private String title;
     private String content;
 }

@@ -54,7 +54,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         return publicationRepository.findById(id).map(publication ->
                         publicationRepository.save(publication
-                                .withTitle(request.getTitle())
                                 .withContent(request.getContent())))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
 

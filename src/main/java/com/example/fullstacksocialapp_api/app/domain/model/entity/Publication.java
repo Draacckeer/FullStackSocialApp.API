@@ -22,7 +22,6 @@ public class Publication extends AuditModel {
     private String username;
     private String userAvatar;
     
-    private String title;
     private String content;
 
 }
