@@ -13,6 +13,7 @@ public class AuthenticateResource {
     private Long id;
     private String username;
     private String email;
+    private String avatar;
     private List<String> roles;
     private String token;
 

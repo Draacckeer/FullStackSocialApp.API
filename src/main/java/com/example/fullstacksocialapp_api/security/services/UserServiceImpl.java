@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
             User user = new User().withUsername(request.getUsername())
                     .withEmail(request.getEmail()).withPassword(encoder.encode(request.getPassword()))
-                    .withRoles(roles);
+                    .withRoles(roles).withAvatar(request.getAvatar());
             userRepository.save(user);
 
             UserResource resource = mapper.map(user, UserResource.class);

@@ -11,4 +11,5 @@ public class UserPublicationResource {
 
     private Long id;
     private String username;
+    private String avatar;
 }

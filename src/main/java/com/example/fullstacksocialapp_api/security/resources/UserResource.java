@@ -13,6 +13,7 @@ public class UserResource {
     private Long id;
     private String username;
     private String email;
+    private String avatar;
     private List<RoleResource> roles;
 
 }

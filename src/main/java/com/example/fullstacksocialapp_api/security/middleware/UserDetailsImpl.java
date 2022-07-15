@@ -20,6 +20,7 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;
     private String email;
+    private String avatar;
 
     @JsonIgnore
     private String password;
@@ -62,7 +63,7 @@ public class UserDetailsImpl implements UserDetails {
                 .collect(Collectors.toList());
         return new UserDetailsImpl(user.getId(),
                 user.getUsername(), user.getEmail(),
-                user.getPassword(), authorities);
+                user.getAvatar(), user.getPassword(), authorities);
     }
 
 

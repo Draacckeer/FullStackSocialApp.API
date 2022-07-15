@@ -30,10 +30,15 @@ public class User extends AuditModel {
     private String username;
 
     @NotNull
-    @NotNull
+    @NotBlank
     @Size(max = 100)
     @Email
     private String email;
+
+    @NotNull
+    @NotBlank
+    @Size(max = 100)
+    private String avatar;
 
     @NotNull
     @NotBlank
@@ -45,14 +50,6 @@ public class User extends AuditModel {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
-
-    public User(String username, String email, String password)
-    {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
 
 

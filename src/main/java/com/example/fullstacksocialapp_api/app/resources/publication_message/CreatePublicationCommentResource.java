@@ -12,6 +12,7 @@ public class CreatePublicationCommentResource {
     private String comment;
     private Long userid;
     private String username;
+    private String userAvatar;
     private Long publication; // ID
     private Long line;
     private Long level;
