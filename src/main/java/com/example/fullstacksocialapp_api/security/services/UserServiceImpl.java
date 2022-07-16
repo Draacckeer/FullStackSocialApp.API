@@ -6,10 +6,7 @@ import com.example.fullstacksocialapp_api.security.domain.model.enumeration.Role
 import com.example.fullstacksocialapp_api.security.domain.persistence.RoleRepository;
 import com.example.fullstacksocialapp_api.security.domain.persistence.UserRepository;
 import com.example.fullstacksocialapp_api.security.domain.service.UserService;
-import com.example.fullstacksocialapp_api.security.domain.service.communication.AuthenticateRequest;
-import com.example.fullstacksocialapp_api.security.domain.service.communication.AuthenticateResponse;
-import com.example.fullstacksocialapp_api.security.domain.service.communication.RegisterRequest;
-import com.example.fullstacksocialapp_api.security.domain.service.communication.RegisterResponse;
+import com.example.fullstacksocialapp_api.security.domain.service.communication.*;
 import com.example.fullstacksocialapp_api.security.middleware.JwtAuthenticationFilter;
 import com.example.fullstacksocialapp_api.security.middleware.JwtHandler;
 import com.example.fullstacksocialapp_api.security.middleware.UserDetailsImpl;
@@ -199,7 +196,8 @@ public class UserServiceImpl implements UserService {
                     userToLike.setLikesList(likesList);
                     userToLike.setLikes(userToLike.getLikes() + 1);
                     userRepository.save(userToLike);
-                    return ResponseEntity.ok().body("User liked");
+                    LikeResponse likeResponse = new LikeResponse(String.valueOf(userToLike.getLikes()));
+                    return ResponseEntity.ok(likeResponse);
                 }
                 else{
                     return ResponseEntity.badRequest().body("User to like not found");
