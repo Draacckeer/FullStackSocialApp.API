@@ -180,7 +180,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> likeUserIdByToken(Long id, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> likeUserIdByToken(Long id, HttpServletRequest request, HttpServletResponse response) {
         String token = jwtAuthenticationFilter.parseTokenFrom(request);
         if (token != null && handler.validateToken(token)){
             logger.info("Token: {}", token);
