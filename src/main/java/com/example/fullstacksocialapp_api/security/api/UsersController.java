@@ -76,7 +76,7 @@ public class UsersController {
     }
 
     @PostMapping("/like-user-id-by-token/{userId}")
-    public ResponseEntity<String> likeUserIdByToken(@PathVariable Long userId, HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<?> likeUserIdByToken(@PathVariable Long userId, HttpServletRequest request, HttpServletResponse response){
         return userService.likeUserIdByToken(userId, request, response);
     }
 

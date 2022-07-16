@@ -27,6 +27,6 @@ public interface UserService extends UserDetailsService {
 
     User getUserByToken(HttpServletRequest request, HttpServletResponse response);
 
-    ResponseEntity<String> likeUserIdByToken(Long id, HttpServletRequest request, HttpServletResponse response);
+    ResponseEntity<?> likeUserIdByToken(Long id, HttpServletRequest request, HttpServletResponse response);
 
 }
