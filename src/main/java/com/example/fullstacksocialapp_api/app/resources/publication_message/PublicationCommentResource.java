@@ -19,4 +19,6 @@ public class PublicationCommentResource {
     private Long level1;
     private Long level2;
     private Long level3;
+    private String createdAt;
+    private String updatedAt;
 }

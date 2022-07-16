@@ -2,6 +2,8 @@ package com.example.fullstacksocialapp_api.app.resources.publication_message;
 
 import lombok.*;
 
+import javax.validation.constraints.Size;
+
 @Getter
 @Setter
 @With
@@ -9,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 public class CreatePublicationCommentResource {
 
+    @Size(max = 1000)
     private String comment;
     private Long userid;
     private String username;

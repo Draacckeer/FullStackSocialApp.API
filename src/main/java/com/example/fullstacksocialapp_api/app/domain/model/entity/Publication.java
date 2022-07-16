@@ -4,6 +4,7 @@ import com.example.fullstacksocialapp_api.shared.domain.model.AuditModel;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -21,7 +22,9 @@ public class Publication extends AuditModel {
     private Long userid;
     private String username;
     private String userAvatar;
-    
+
+    @Column(length = 1000)
+    @Size(max = 1000)
     private String content;
 
 }

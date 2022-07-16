@@ -13,4 +13,6 @@ public class PublicationResource {
     private String username;
     private String userAvatar;
     private String content;
+    private String createdAt;
+    private String updatedAt;
 }

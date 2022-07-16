@@ -4,6 +4,7 @@ import com.example.fullstacksocialapp_api.shared.domain.model.AuditModel;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -17,6 +18,8 @@ public class PublicationComment extends AuditModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 1000)
+    @Size(max = 1000)
     private String comment;
 
     //User
