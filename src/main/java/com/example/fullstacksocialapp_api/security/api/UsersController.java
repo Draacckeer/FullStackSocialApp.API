@@ -70,4 +70,9 @@ public class UsersController {
         return mapper.toUserPublicationResource(userService.getUserByToken(request, response));
     }
 
+    @PostMapping("/like-user-id-by-id/{userId}")
+    public ResponseEntity<?> likeUserIdByToken(@PathVariable Long userId, HttpServletRequest request, HttpServletResponse response){
+        return userService.likeUserIdByToken(userId, request, response);
+    }
+
 }

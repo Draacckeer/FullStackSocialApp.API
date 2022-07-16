@@ -28,13 +28,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
             User user = new User().withUsername(request.getUsername())
                     .withEmail(request.getEmail()).withPassword(encoder.encode(request.getPassword()))
-                    .withRoles(roles).withAvatar(request.getAvatar());
+                    .withRoles(roles).withAvatar(request.getAvatar()).withLikes(0L).withLikesList(new HashSet<>());
             userRepository.save(user);
 
             UserResource resource = mapper.map(user, UserResource.class);
@@ -177,6 +177,39 @@ public class UserServiceImpl implements UserService {
             return userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
         }
         return null;
+    }
+
+    @Override
+    public ResponseEntity<?> likeUserIdByToken(Long id, HttpServletRequest request, HttpServletResponse response) {
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            User user = userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+            if(user != null){
+                if(Objects.equals(user.getId(), id)){
+                    return ResponseEntity.badRequest().body("You can't like yourself");
+                }
+                User userToLike = userRepository.findById(id).orElse(null);
+                if(userToLike != null){
+                    if(userToLike.getLikesList().contains(user)){
+                        return ResponseEntity.badRequest().body("You already liked this user");
+                    }
+                    Set<User> likesList = new HashSet<>(userToLike.getLikesList());
+                    likesList.add(user);
+                    userToLike.setLikesList(likesList);
+                    userToLike.setLikes(userToLike.getLikes() + 1);
+                    userRepository.save(userToLike);
+                    return ResponseEntity.ok("User liked");
+                }
+                else{
+                    return ResponseEntity.badRequest().body("User to like not found");
+                }
+            }
+            else{
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        }
+        return ResponseEntity.badRequest().body("Error");
     }
 
 }
