@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService {
                     userToLike.setLikesList(likesList);
                     userToLike.setLikes(userToLike.getLikes() + 1);
                     userRepository.save(userToLike);
-                    return ResponseEntity.ok("User liked");
+                    return ResponseEntity.ok().body("User liked");
                 }
                 else{
                     return ResponseEntity.badRequest().body("User to like not found");
