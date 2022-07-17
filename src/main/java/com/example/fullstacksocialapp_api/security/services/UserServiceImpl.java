@@ -11,6 +11,7 @@ import com.example.fullstacksocialapp_api.security.middleware.JwtAuthenticationF
 import com.example.fullstacksocialapp_api.security.middleware.JwtHandler;
 import com.example.fullstacksocialapp_api.security.middleware.UserDetailsImpl;
 import com.example.fullstacksocialapp_api.security.resources.AuthenticateResource;
+import com.example.fullstacksocialapp_api.security.resources.UserLikeResource;
 import com.example.fullstacksocialapp_api.security.resources.UserResource;
 import com.example.fullstacksocialapp_api.shared.mapping.EnhancedModelMapper;
 import org.slf4j.Logger;
@@ -196,7 +197,8 @@ public class UserServiceImpl implements UserService {
                     userToLike.setLikesList(likesList);
                     userToLike.setLikes(userToLike.getLikes() + 1);
                     userRepository.save(userToLike);
-                    LikeResponse likeResponse = new LikeResponse(String.valueOf(userToLike.getLikes()));
+                    UserLikeResource resource = mapper.map(userToLike, UserLikeResource.class);
+                    LikeResponse likeResponse = new LikeResponse(resource);
                     return ResponseEntity.ok(likeResponse);
                 }
                 else{
