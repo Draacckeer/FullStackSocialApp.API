@@ -21,7 +21,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends AuditModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -49,7 +49,7 @@ public class User extends AuditModel {
     private Long likes;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_like",
+    @JoinTable(name = "user_likes",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "like_user_id"))
     private Set<User> likesList = new HashSet<>();
