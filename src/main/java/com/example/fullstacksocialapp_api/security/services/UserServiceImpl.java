@@ -197,9 +197,8 @@ public class UserServiceImpl implements UserService {
                     userToLike.setLikesList(likesList);
                     userToLike.setLikes(userToLike.getLikes() + 1);
                     userRepository.save(userToLike);
-                    UserLikeResource resource = mapper.map(userToLike, UserLikeResource.class);
-                    LikeResponse likeResponse = new LikeResponse(resource);
-                    return ResponseEntity.ok(likeResponse);
+                    UserResource resource = mapper.map(userToLike, UserResource.class);
+                    return ResponseEntity.ok(resource);
                 }
                 else{
                     return ResponseEntity.badRequest().body("User to like not found");
