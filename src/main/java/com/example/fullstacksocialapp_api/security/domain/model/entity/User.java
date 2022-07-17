@@ -24,6 +24,7 @@ public class User extends AuditModel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    
     @NotBlank
     @NotNull
     @Size(max = 100)
