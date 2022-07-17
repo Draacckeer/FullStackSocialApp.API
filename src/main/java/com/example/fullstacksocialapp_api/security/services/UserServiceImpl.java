@@ -198,7 +198,6 @@ public class UserServiceImpl implements UserService {
                     user.setLikesList(likesList);
                     userToLike.setLikes(userToLike.getLikes() + 1);
                     userRepository.save(user);
-                    userRepository.save(userToLike);
                     UserResource resource = mapper.map(userToLike, UserResource.class);
                     return ResponseEntity.ok(resource);
                 }
