@@ -15,7 +15,7 @@ public class UserResource {
     private String email;
     private String avatar;
     private Long likes;
-    private List<UserLikeResource> userLikes;
+    private List<UserLikeResource> usersLike;
     private List<RoleResource> roles;
 
 }

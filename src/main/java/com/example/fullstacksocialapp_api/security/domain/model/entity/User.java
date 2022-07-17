@@ -49,7 +49,7 @@ public class User extends AuditModel {
     private Long likes;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_likes",
+    @JoinTable(name = "users_like",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "like_user_id"))
     private Set<User> likesList = new HashSet<>();
