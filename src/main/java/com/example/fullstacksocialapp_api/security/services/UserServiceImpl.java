@@ -17,6 +17,7 @@ import com.example.fullstacksocialapp_api.shared.mapping.EnhancedModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -131,7 +132,7 @@ public class UserServiceImpl implements UserService {
 
 
     public List<User> getAll(){
-        return userRepository.findAll();
+        return userRepository.findAll(Sort.by(Sort.Direction.DESC, "likes"));
     }
 
     @Override
