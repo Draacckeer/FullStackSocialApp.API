@@ -80,4 +80,9 @@ public class UsersController {
         return userService.likeUserIdByToken(userId, request, response);
     }
 
+    @PostMapping("/unlike-user-id-by-token/{userId}")
+    public ResponseEntity<?> unlikeUserIdByToken(@PathVariable Long userId, HttpServletRequest request, HttpServletResponse response){
+        return userService.unlikeUserIdByToken(userId, request, response);
+    }
+
 }

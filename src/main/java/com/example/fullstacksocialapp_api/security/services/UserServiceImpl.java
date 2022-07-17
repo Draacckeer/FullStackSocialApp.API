@@ -212,4 +212,38 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.badRequest().body("Error");
     }
 
+    @Override
+    public ResponseEntity<?> unlikeUserIdByToken(Long id, HttpServletRequest request, HttpServletResponse response){
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            User user = userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+            if(user != null){
+                if(Objects.equals(user.getId(), id)){
+                    return ResponseEntity.badRequest().body("You can't unlike yourself");
+                }
+                User userToUnlike = userRepository.findById(id).orElse(null);
+                if(userToUnlike != null){
+                    if(!user.getLikesList().contains(userToUnlike)){
+                        return ResponseEntity.badRequest().body("You didn't like this user");
+                    }
+                    Set<User> likesList = new HashSet<>(user.getLikesList());
+                    likesList.remove(userToUnlike);
+                    user.setLikesList(likesList);
+                    userToUnlike.setLikes(userToUnlike.getLikes() - 1);
+                    userRepository.save(user);
+                    UserResource resource = mapper.map(userToUnlike, UserResource.class);
+                    return ResponseEntity.ok(resource);
+                }
+                else{
+                    return ResponseEntity.badRequest().body("User to unlike not found");
+                }
+            }
+            else{
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        }
+        return ResponseEntity.badRequest().body("Error");
+    }
+
 }
