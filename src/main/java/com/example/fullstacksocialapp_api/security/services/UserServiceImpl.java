@@ -189,14 +189,14 @@ public class UserServiceImpl implements UserService {
                 }
                 User userToLike = userRepository.findById(id).orElse(null);
                 if(userToLike != null){
-                    if(userToLike.getLikesList().contains(user)){
+                    if(user.getLikesList().contains(userToLike)){
                         return ResponseEntity.badRequest().body("You already liked this user");
                     }
-                    Set<User> likesList = new HashSet<>(userToLike.getLikesList());
-                    likesList.add(user);
-                    userToLike.setLikesList(likesList);
+                    Set<User> likesList = new HashSet<>(user.getLikesList());
+                    likesList.add(userToLike);
+                    user.setLikesList(likesList);
                     userToLike.setLikes(userToLike.getLikes() + 1);
-                    userRepository.save(userToLike);
+                    userRepository.save(user);
                     UserResource resource = mapper.map(userToLike, UserResource.class);
                     return ResponseEntity.ok(resource);
                 }
