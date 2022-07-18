@@ -353,12 +353,12 @@ public class UserServiceImpl implements UserService {
                     if(!userToAccept.getRequestFriendsList().contains(user)){
                         return ResponseEntity.badRequest().body("This user didn't request you");
                     }
-                    Set<User> requestOfFriendsList = new HashSet<>(user.getRequestOfFriendsList());
-                    requestOfFriendsList.remove(userToAccept);
-                    user.setRequestFriendsList(requestOfFriendsList);
                     Set<User> requestFriendsList = new HashSet<>(userToAccept.getRequestFriendsList());
                     requestFriendsList.remove(user);
                     userToAccept.setRequestOfFriendsList(requestFriendsList);
+                    Set<User> requestOfFriendsList = new HashSet<>(user.getRequestOfFriendsList());
+                    requestOfFriendsList.remove(userToAccept);
+                    user.setRequestFriendsList(requestOfFriendsList);
                     Set<User> friendsList = new HashSet<>(user.getFriendsList());
                     friendsList.add(userToAccept);
                     user.setFriendsList(friendsList);
@@ -395,6 +395,7 @@ public class UserServiceImpl implements UserService {
                     if(!userToReject.getRequestFriendsList().contains(user)){
                         return ResponseEntity.badRequest().body("This user didn't request you");
                     }
+
                     Set<User> requestOfFriendsList = new HashSet<>(user.getRequestOfFriendsList());
                     requestOfFriendsList.remove(userToReject);
                     user.setRequestFriendsList(requestOfFriendsList);
