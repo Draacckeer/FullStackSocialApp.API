@@ -401,7 +401,7 @@ public class UserServiceImpl implements UserService {
                     Set<User> requestFriendsList = new HashSet<>(userToReject.getRequestFriendsList());
                     requestFriendsList.remove(user);
                     userToReject.setRequestOfFriendsList(requestFriendsList);
-                    userRepository.save(userToReject);
+                    userRepository.save(user);
                     UserResource resource = mapper.map(userToReject, UserResource.class);
                     return ResponseEntity.ok(resource);
                 }
