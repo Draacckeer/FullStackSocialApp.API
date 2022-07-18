@@ -16,6 +16,10 @@ public class UserResource {
     private String avatar;
     private Long likes;
     private List<UserLikeResource> userLikes;
+    private List<UserLikeResource> userRequestFriends;
+    private List<UserLikeResource> userRequestOfFriends;
+    private List<UserLikeResource> userFriends;
+    private List<UserLikeResource> userOfFriends;
     private List<RoleResource> roles;
 
 }

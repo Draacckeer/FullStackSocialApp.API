@@ -54,6 +54,32 @@ public class User extends AuditModel {
             inverseJoinColumns = @JoinColumn(name = "like_user_id"))
     private Set<User> likesList = new HashSet<>();
 
+    // List of users who I sent a request to be friends with me
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_request_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "request_user_id"))
+    private Set<User> requestFriendsList = new HashSet<>();
+
+    // List of users who sent a request to be friends with me
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_request_of_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "request_of_user_id"))
+    private Set<User> requestOfFriendsList = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_user_id"))
+    private Set<User> friendsList = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_friends_of",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_of_user_id"))
+    private Set<User> friendsOfList = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

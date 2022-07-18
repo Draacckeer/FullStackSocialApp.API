@@ -115,7 +115,9 @@ public class UserServiceImpl implements UserService {
 
             User user = new User().withUsername(request.getUsername())
                     .withEmail(request.getEmail()).withPassword(encoder.encode(request.getPassword()))
-                    .withRoles(roles).withAvatar(request.getAvatar()).withLikes(0L).withLikesList(new HashSet<>());
+                    .withRoles(roles).withAvatar(request.getAvatar()).withLikes(0L).withLikesList(new HashSet<>())
+                    .withRequestFriendsList(new HashSet<>()).withRequestOfFriendsList(new HashSet<>())
+                    .withFriendsList(new HashSet<>());
             userRepository.save(user);
 
             UserResource resource = mapper.map(user, UserResource.class);
@@ -237,6 +239,99 @@ public class UserServiceImpl implements UserService {
                 }
                 else{
                     return ResponseEntity.badRequest().body("User to unlike not found");
+                }
+            }
+            else{
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        }
+        return ResponseEntity.badRequest().body("Error");
+    }
+
+    @Override
+    public ResponseEntity<?> requestFriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response){
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            User user = userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+            if(user != null){
+                if(Objects.equals(user.getId(), userId)){
+                    return ResponseEntity.badRequest().body("You can't request yourself");
+                }
+                User userToRequest = userRepository.findById(userId).orElse(null);
+                if(userToRequest != null){
+                    if(user.getFriendsList().contains(userToRequest)){
+                        return ResponseEntity.badRequest().body("You already have this user in your friends list");
+                    }
+                    if(userToRequest.getFriendsList().contains(user)){
+                        return ResponseEntity.badRequest().body("This user already has you in his friends list");
+                    }
+                    if(user.getRequestFriendsList().contains(userToRequest)){
+                        return ResponseEntity.badRequest().body("You already have this user in your requests list");
+                    }
+                    if(userToRequest.getRequestFriendsList().contains(user)){
+                        return ResponseEntity.badRequest().body("This user already has you in his requests list");
+                    }
+                    Set<User> requestFriendsList = new HashSet<>(user.getRequestFriendsList());
+                    requestFriendsList.add(userToRequest);
+                    user.setRequestFriendsList(requestFriendsList);
+                    Set<User> requestOfFriendsList = new HashSet<>(userToRequest.getRequestOfFriendsList());
+                    requestOfFriendsList.add(user);
+                    userToRequest.setRequestOfFriendsList(requestOfFriendsList);
+                    userRepository.save(user);
+                    UserResource resource = mapper.map(userToRequest, UserResource.class);
+                    return ResponseEntity.ok(resource);
+                }
+                else{
+                    return ResponseEntity.badRequest().body("User to request not found");
+                }
+            }
+            else{
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        }
+        return ResponseEntity.badRequest().body("Error");
+    }
+
+    @Override
+    public ResponseEntity<?> acceptFriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response){
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            User user = userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+            if(user != null){
+                if(Objects.equals(user.getId(), userId)){
+                    return ResponseEntity.badRequest().body("You can't accept yourself");
+                }
+                User userToAccept = userRepository.findById(userId).orElse(null);
+                if(userToAccept != null){
+                    if(user.getFriendsList().contains(userToAccept)){
+                        return ResponseEntity.badRequest().body("You already have this user in your friends list");
+                    }
+                    if(userToAccept.getFriendsList().contains(user)){
+                        return ResponseEntity.badRequest().body("This user already has you in his friends list");
+                    }
+                    if(!userToAccept.getRequestOfFriendsList().contains(user)){
+                        return ResponseEntity.badRequest().body("This user didn't request you");
+                    }
+                    Set<User> requestFriendsList = new HashSet<>(user.getRequestFriendsList());
+                    requestFriendsList.remove(userToAccept);
+                    user.setRequestFriendsList(requestFriendsList);
+                    Set<User> requestOfFriendsList = new HashSet<>(userToAccept.getRequestOfFriendsList());
+                    requestOfFriendsList.remove(user);
+                    userToAccept.setRequestOfFriendsList(requestOfFriendsList);
+                    Set<User> friendsList = new HashSet<>(user.getFriendsList());
+                    friendsList.add(userToAccept);
+                    user.setFriendsList(friendsList);
+                    Set<User> friendsOfList = new HashSet<>(userToAccept.getFriendsOfList());
+                    friendsOfList.add(user);
+                    userToAccept.setFriendsOfList(friendsOfList);
+                    userRepository.save(user);
+                    UserResource resource = mapper.map(userToAccept, UserResource.class);
+                    return ResponseEntity.ok(resource);
+                }
+                else{
+                    return ResponseEntity.badRequest().body("User to accept not found");
                 }
             }
             else{
