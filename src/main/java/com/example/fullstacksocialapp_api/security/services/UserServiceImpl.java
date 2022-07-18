@@ -294,6 +294,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ResponseEntity<?> unrequestFriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response){
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            User user = userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+            if(user != null){
+                if(Objects.equals(user.getId(), userId)){
+                    return ResponseEntity.badRequest().body("You can't unrequest yourself");
+                }
+                User userToUnrequest = userRepository.findById(userId).orElse(null);
+                if(userToUnrequest != null){
+                    if(!user.getRequestFriendsList().contains(userToUnrequest)){
+                        return ResponseEntity.badRequest().body("You don't have this user in your requests list");
+                    }
+                    if(!userToUnrequest.getRequestOfFriendsList().contains(user)){
+                        return ResponseEntity.badRequest().body("This user doesn't have you in his requests list");
+                    }
+                    Set<User> requestFriendsList = new HashSet<>(user.getRequestFriendsList());
+                    requestFriendsList.remove(userToUnrequest);
+                    user.setRequestFriendsList(requestFriendsList);
+                    Set<User> requestOfFriendsList = new HashSet<>(userToUnrequest.getRequestOfFriendsList());
+                    requestOfFriendsList.remove(user);
+                    userToUnrequest.setRequestOfFriendsList(requestOfFriendsList);
+                    userRepository.save(user);
+                    UserResource resource = mapper.map(userToUnrequest, UserResource.class);
+                    return ResponseEntity.ok(resource);
+                }
+                else{
+                    return ResponseEntity.badRequest().body("User to unrequest not found");
+                }
+            }
+            else{
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        }
+        return ResponseEntity.badRequest().body("Error");
+    }
+
+    @Override
     public ResponseEntity<?> acceptFriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response){
         String token = jwtAuthenticationFilter.parseTokenFrom(request);
         if (token != null && handler.validateToken(token)){
