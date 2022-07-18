@@ -100,4 +100,9 @@ public class UsersController {
         return userService.acceptFriendByToken(userId, request, response);
     }
 
+    @PostMapping("/reject-friend-by-token/{userId}")
+    public ResponseEntity<?> rejectFriendByToken(@PathVariable Long userId, HttpServletRequest request, HttpServletResponse response){
+        return userService.rejectFriendByToken(userId, request, response);
+    }
+
 }

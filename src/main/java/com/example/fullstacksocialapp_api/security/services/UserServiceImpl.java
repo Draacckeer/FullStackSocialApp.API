@@ -380,4 +380,37 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.badRequest().body("Error");
     }
 
+    @Override
+    public ResponseEntity<?> rejectFriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response){
+        String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            User user = userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+            if(user != null){
+                if(Objects.equals(user.getId(), userId)){
+                    return ResponseEntity.badRequest().body("You can't reject yourself");
+                }
+                User userToReject = userRepository.findById(userId).orElse(null);
+                if(userToReject != null){
+                    if(!userToReject.getRequestOfFriendsList().contains(user)){
+                        return ResponseEntity.badRequest().body("This user didn't request you");
+                    }
+                    Set<User> requestOfFriendsList = new HashSet<>(userToReject.getRequestOfFriendsList());
+                    requestOfFriendsList.remove(user);
+                    userToReject.setRequestOfFriendsList(requestOfFriendsList);
+                    userRepository.save(userToReject);
+                    UserResource resource = mapper.map(userToReject, UserResource.class);
+                    return ResponseEntity.ok(resource);
+                }
+                else{
+                    return ResponseEntity.badRequest().body("User to reject not found");
+                }
+            }
+            else{
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        }
+        return ResponseEntity.badRequest().body("Error");
+    }
+
 }
