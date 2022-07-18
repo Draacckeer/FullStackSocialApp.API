@@ -437,9 +437,9 @@ public class UserServiceImpl implements UserService {
                     Set<User> friendsList = new HashSet<>(user.getFriendsList());
                     friendsList.remove(userToUnfriend);
                     user.setFriendsList(friendsList);
-                    Set<User> friendsOfList = new HashSet<>(userToUnfriend.getFriendsOfList());
+                    Set<User> friendsOfList = new HashSet<>(userToUnfriend.getFriendsList());
                     friendsOfList.remove(user);
-                    userToUnfriend.setFriendsOfList(friendsOfList);
+                    userToUnfriend.setFriendsList(friendsOfList);
                     userRepository.save(user);
                     UserResource resource = mapper.map(userToUnfriend, UserResource.class);
                     return ResponseEntity.ok(resource);
