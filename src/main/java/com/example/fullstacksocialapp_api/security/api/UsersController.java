@@ -105,4 +105,9 @@ public class UsersController {
         return userService.rejectFriendByToken(userId, request, response);
     }
 
+    @PostMapping("/unfriend-by-token/{userId}")
+    public ResponseEntity<?> unfriendByToken(@PathVariable Long userId, HttpServletRequest request, HttpServletResponse response){
+        return userService.unfriendByToken(userId, request, response);
+    }
+
 }

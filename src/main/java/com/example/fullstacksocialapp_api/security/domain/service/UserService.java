@@ -38,4 +38,6 @@ public interface UserService extends UserDetailsService {
     ResponseEntity<?> unrequestFriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response);
 
     ResponseEntity<?> rejectFriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response);
+
+    ResponseEntity<?> unfriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response);
 }

@@ -353,18 +353,18 @@ public class UserServiceImpl implements UserService {
                     if(!userToAccept.getRequestOfFriendsList().contains(user)){
                         return ResponseEntity.badRequest().body("This user didn't request you");
                     }
-                    Set<User> requestFriendsList = new HashSet<>(user.getRequestFriendsList());
-                    requestFriendsList.remove(userToAccept);
-                    user.setRequestFriendsList(requestFriendsList);
-                    Set<User> requestOfFriendsList = new HashSet<>(userToAccept.getRequestOfFriendsList());
-                    requestOfFriendsList.remove(user);
-                    userToAccept.setRequestOfFriendsList(requestOfFriendsList);
+                    Set<User> requestOfFriendsList = new HashSet<>(user.getRequestOfFriendsList());
+                    requestOfFriendsList.remove(userToAccept);
+                    user.setRequestFriendsList(requestOfFriendsList);
+                    Set<User> requestFriendsList = new HashSet<>(userToAccept.getRequestFriendsList());
+                    requestFriendsList.remove(user);
+                    userToAccept.setRequestOfFriendsList(requestFriendsList);
                     Set<User> friendsList = new HashSet<>(user.getFriendsList());
                     friendsList.add(userToAccept);
                     user.setFriendsList(friendsList);
-                    Set<User> friendsOfList = new HashSet<>(userToAccept.getFriendsOfList());
+                    Set<User> friendsOfList = new HashSet<>(userToAccept.getFriendsList());
                     friendsOfList.add(user);
-                    userToAccept.setFriendsOfList(friendsOfList);
+                    userToAccept.setFriendsList(friendsOfList);
                     userRepository.save(user);
                     UserResource resource = mapper.map(userToAccept, UserResource.class);
                     return ResponseEntity.ok(resource);
@@ -395,15 +395,57 @@ public class UserServiceImpl implements UserService {
                     if(!userToReject.getRequestOfFriendsList().contains(user)){
                         return ResponseEntity.badRequest().body("This user didn't request you");
                     }
-                    Set<User> requestOfFriendsList = new HashSet<>(userToReject.getRequestOfFriendsList());
-                    requestOfFriendsList.remove(user);
-                    userToReject.setRequestOfFriendsList(requestOfFriendsList);
+                    Set<User> requestOfFriendsList = new HashSet<>(user.getRequestOfFriendsList());
+                    requestOfFriendsList.remove(userToReject);
+                    user.setRequestFriendsList(requestOfFriendsList);
+                    Set<User> requestFriendsList = new HashSet<>(userToReject.getRequestFriendsList());
+                    requestFriendsList.remove(user);
+                    userToReject.setRequestOfFriendsList(requestFriendsList);
                     userRepository.save(userToReject);
                     UserResource resource = mapper.map(userToReject, UserResource.class);
                     return ResponseEntity.ok(resource);
                 }
                 else{
                     return ResponseEntity.badRequest().body("User to reject not found");
+                }
+            }
+            else{
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        }
+        return ResponseEntity.badRequest().body("Error");
+    }
+
+    @Override
+    public ResponseEntity<?> unfriendByToken(Long userId, HttpServletRequest request, HttpServletResponse response){
+    String token = jwtAuthenticationFilter.parseTokenFrom(request);
+        if (token != null && handler.validateToken(token)){
+            logger.info("Token: {}", token);
+            User user = userRepository.findByUsername(handler.getUsernameFrom(token)).orElse(null);
+            if(user != null){
+                if(Objects.equals(user.getId(), userId)){
+                    return ResponseEntity.badRequest().body("You can't unfriend yourself");
+                }
+                User userToUnfriend = userRepository.findById(userId).orElse(null);
+                if(userToUnfriend != null){
+                    if(!user.getFriendsList().contains(userToUnfriend)){
+                        return ResponseEntity.badRequest().body("You don't have this user in your friends list");
+                    }
+                    if(!userToUnfriend.getFriendsList().contains(user)){
+                        return ResponseEntity.badRequest().body("This user doesn't have you in his friends list");
+                    }
+                    Set<User> friendsList = new HashSet<>(user.getFriendsList());
+                    friendsList.remove(userToUnfriend);
+                    user.setFriendsList(friendsList);
+                    Set<User> friendsOfList = new HashSet<>(userToUnfriend.getFriendsOfList());
+                    friendsOfList.remove(user);
+                    userToUnfriend.setFriendsOfList(friendsOfList);
+                    userRepository.save(user);
+                    UserResource resource = mapper.map(userToUnfriend, UserResource.class);
+                    return ResponseEntity.ok(resource);
+                }
+                else{
+                    return ResponseEntity.badRequest().body("User to unfriend not found");
                 }
             }
             else{
