@@ -17,7 +17,7 @@ public class UserResource {
     private Long likes;
     private List<UserLikeResource> userLikes;
     private List<UserLikeResource> userRequestFriends;
-    private List<UserLikeResource> userRequestOfFriends;
+    private List<UserRequestOfFriendsResource> userRequestOfFriends;
     private List<UserLikeResource> userFriends;
     private List<RoleResource> roles;
 
