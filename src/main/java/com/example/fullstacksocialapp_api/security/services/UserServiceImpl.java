@@ -350,7 +350,7 @@ public class UserServiceImpl implements UserService {
                     if(userToAccept.getFriendsList().contains(user)){
                         return ResponseEntity.badRequest().body("This user already has you in his friends list");
                     }
-                    if(!userToAccept.getRequestOfFriendsList().contains(user)){
+                    if(!userToAccept.getRequestFriendsList().contains(user)){
                         return ResponseEntity.badRequest().body("This user didn't request you");
                     }
                     Set<User> requestOfFriendsList = new HashSet<>(user.getRequestOfFriendsList());
@@ -392,7 +392,7 @@ public class UserServiceImpl implements UserService {
                 }
                 User userToReject = userRepository.findById(userId).orElse(null);
                 if(userToReject != null){
-                    if(!userToReject.getRequestOfFriendsList().contains(user)){
+                    if(!userToReject.getRequestFriendsList().contains(user)){
                         return ResponseEntity.badRequest().body("This user didn't request you");
                     }
                     Set<User> requestOfFriendsList = new HashSet<>(user.getRequestOfFriendsList());
