@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +43,12 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getByUserSenderIdAndUserReceiverId(Long userSenderId, Long userReceiverId){
-        return messageRepository.findByUserSenderidAndUserReceiverid(userSenderId, userReceiverId);
+        List<Message> messagesSent = messageRepository.findByUserSenderidAndUserReceiverid(userSenderId, userReceiverId);
+        List<Message> messagesReceived = messageRepository.findByUserSenderidAndUserReceiverid(userReceiverId, userSenderId);
+        List<Message> messages = new ArrayList<Message>();
+        messages.addAll(messagesSent);
+        messages.addAll(messagesReceived);
+        return messages;
     }
 
     @Override
