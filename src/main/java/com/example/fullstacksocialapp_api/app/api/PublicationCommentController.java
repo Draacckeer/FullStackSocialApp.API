@@ -19,7 +19,6 @@ import java.util.List;
 public class PublicationCommentController {
     private final PublicationCommentService publicationCommentService;
     private final PublicationCommentMapper mapper;
-
     public PublicationCommentController(PublicationCommentService publicationCommentService, PublicationCommentMapper mapper){
         this.publicationCommentService = publicationCommentService;
         this.mapper = mapper;
